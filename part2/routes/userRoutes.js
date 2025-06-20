@@ -56,3 +56,24 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+// store session after login successfully
+req.session.user = {
+  user_id: rows[0].user_id,
+  username: rows[0].username,
+  role: rows[0].role
+};
+
+// logout routes and clear session
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({ error: 'Logout failed' });
+    }
+    res.clearCookie('connect.sid'); // clear cookie
+    res.json({ message: 'Logged out successfully' });
+  });
+});
+
+
+module.exports = router;

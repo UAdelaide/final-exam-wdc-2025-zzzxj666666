@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dog of the Day</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: cursive;
+      background-color: #ccccff;
+      color: #ccccff;
+    }
+    .tiny-button {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 30px;
+      height: 15px;
+      background: lime;
+      font-size: 6px;
+    }
+    .floating-box {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: yellow;
+      padding: 20px;
+      border: 2px dashed red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <p>Click the almost-invisible button to get a random dog:</p>
+      <button class="tiny-button" @click="getDog">Go!</button>
+    </div>
+
+    <img :src="dogImage" style="width:200px;height:200px;margin-top:50px;">
+    
+    <div class="floating-box">This dog is cute. Or is it? Maybe not. Who knows?</div>
+    <div class="floating-box" style="left: 10px; bottom: 80px;">Please ignore the other box. Only trust this one.</div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          dogImage: ''
+        }
+      },
+      mounted() {
+        this.getDog();
+      },
+      methods: {
+        async getDog() {
+          const res = await fetch('https://dog.ceo/api/breeds/image/random');
+          const data = await res.json();
+          this.dogImage = data.message;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

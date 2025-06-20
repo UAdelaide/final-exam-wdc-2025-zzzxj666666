@@ -11,6 +11,22 @@
   <div id="app" class="container py-4">
     <h1 class="mb-4 text-primary">Owner Dashboard</h1>
 
+<button class="btn btn-danger mt-3" onclick="logout()">Logout</button>
+
+<script>
+  function logout() {
+    fetch('/api/users/logout', {
+      method: 'POST',
+      credentials: 'include'
+    })
+    .then(res => {
+      if (res.ok) {
+        window.location.href = '/index.html'; // Back to the login page
+      }
+    });
+  }
+</script>
+
     <!-- Walk request form -->
     <div class="card mb-4">
       <div class="card-header bg-primary text-white">
@@ -31,8 +47,13 @@
             <input v-model="form.duration_minutes" type="number" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Location</label>
-            <input v-model="form.location" type="text" class="form-control" required>
+           <label class="form-label">Select Your Dog</label>
+            <select v-model="form.dog_id" class="form-select" required>
+            <option disabled value="">-- Choose a dog --</option>
+            <option v-for="dog in dogs" :key="dog.dog_id" :value="dog.dog_id">
+              {{ dog.name }}
+             </option>
+            </select>
           </div>
           <button type="submit" class="btn btn-success">Create Walk</button>
         </form>

@@ -15,7 +15,39 @@
 
     <a href="owner-dashboard.html" class="btn btn-outline-primary me-2">Owner Dashboard</a>
     <a href="walker-dashboard.html" class="btn btn-outline-success">Walker Dashboard</a>
+
+    <h2 class="mt-5">All Dogs in Our Service</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Photo</th>
+      <th>Name</th>
+      <th>Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="dog in dogs" :key="dog.dog_id">
+      <td><img :src="dog.image" alt="dog photo" width="100" /></td>
+      <td>{{ dog.name }}</td>
+      <td>{{ dog.size }}</td>
+    </tr>
+  </tbody>
+</table>
+
   </div>
+
+  <!-- Login form -->
+<form id="loginForm" class="mt-4" method="POST" action="/api/users/login">
+  <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input type="text" name="username" id="username" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password" id="password" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Log In</button>
+</form>
 
   <script>
     const { createApp } = Vue;

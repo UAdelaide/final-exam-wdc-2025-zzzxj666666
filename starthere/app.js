@@ -19,7 +19,7 @@ let db;
     const connection = await mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: '' // Set your MySQL root password
+      password: 'Zxjde05.' // Set your MySQL root password
     });
 
     // Create the database if it doesn't exist
@@ -30,7 +30,7 @@ let db;
     db = await mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: '',
+      password: 'Zxjde05.',
       database: 'testdb'
     });
 
@@ -46,7 +46,7 @@ let db;
     // Insert data if table is empty
     const [rows] = await db.execute('SELECT COUNT(*) AS count FROM books');
     if (rows[0].count === 0) {
-      await db.execute(`
+    await db.execute(`
         INSERT INTO books (title, author) VALUES
         ('1984', 'George Orwell'),
         ('To Kill a Mockingbird', 'Harper Lee'),
