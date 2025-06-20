@@ -15,6 +15,22 @@
     <div v-if="message" class="alert alert-info">{{ message }}</div>
     <div v-if="error" class="alert alert-danger">{{ error }}</div>
 
+<button class="btn btn-danger mt-3" onclick="logout()">Logout</button>
+
+<script>
+  function logout() {
+    fetch('/api/users/logout', {
+      method: 'POST',
+      credentials: 'include'
+    })
+    .then(res => {
+      if (res.ok) {
+        window.location.href = '/index.html'; // Back to the login page
+      }
+    });
+  }
+</script>
+
     <!-- Walk requests list -->
     <div v-if="walks.length > 0" class="row">
       <div class="col-md-6 mb-4" v-for="walk in walks" :key="walk.request_id">
